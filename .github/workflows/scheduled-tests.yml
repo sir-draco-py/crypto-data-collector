@@ -1,0 +1,28 @@
+name: Scheduled Automated Tests
+
+on:
+  schedule:
+    # Runs at 02:00 UTC every single day
+    - cron: '0 * * * *'
+  
+  # Highly recommended: Allows you to manually trigger the test anytime from the Actions tab
+  workflow_dispatch: 
+
+jobs:
+  run-tests:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js (Example for JS/TS)
+        uses: actions/setup-node@v4
+        with:
+          node-node-version: '20'
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Run Test Suite
+        run: npm test
